@@ -1,1 +1,328 @@
-# about-me
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ragab Shabaan - Developer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: white;
+      background-color: #0e1621;
+      text-align: center;
+    }
+    header {
+      background-color: #1a2533cc;
+      padding: 30px 10px;
+    }
+    .avatar {
+      width: 120px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    h1 {
+      margin: 10px 0 5px;
+      color: #00bfff;
+    }
+    .services {
+      padding: 30px 10px;
+      background-color: #1f2b3acc;
+    }
+    .services h2 {
+      color: #00bfff;
+    }
+    .service-card {
+      display: inline-block;
+      background-color: #243446;
+      border-radius: 10px;
+      padding: 15px;
+      margin: 10px;
+      width: 150px;
+      cursor: pointer;
+    }
+    .service-card img {
+      width: 50px;
+      margin-bottom: 10px;
+    }
+    .contact {
+      padding: 20px 10px;
+      background-color: #1a2533cc;
+    }
+    .contact h2 {
+      color: #00bfff;
+      margin-bottom: 15px;
+    }
+    footer {
+      background-color: #0d1a27cc;
+      padding: 10px;
+      font-size: 0.9em;
+    }
+    .popup-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1a2533;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+    }
+    .popup-form input, .popup-form textarea {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+    .popup-form button {
+      padding: 10px 20px;
+      background-color: #00bfff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 999;
+    }
+    .confirmation {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #1a2533;
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1001;
+    }
+    .confirmation button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #00bfff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="ragab.png" alt="Ragab Avatar" class="avatar">
+    <h1>Ragab Shabaan</h1>
+    <p>Web & App Developer | Graphic Designer</p>
+  </header>
+
+  <section class="services">
+    <h2>My Services</h2>
+    <div class="service-card" onclick="openForm('Website Design')">
+      <img src="https://cdn-icons-png.flaticon.com/128/1055/1055687.png" alt="Website Icon" />
+      <p>Website Design</p>
+    </div>
+    <div class="service-card" onclick="openForm('Mobile Apps')">
+      <img src="https://cdn-icons-png.flaticon.com/128/186/186239.png" alt="App Icon" />
+      <p>Mobile Apps</p>
+    </div>
+    <div class="service-card" onclick="openForm('Python Scripts')">
+      <img src="https://cdn-icons-png.flaticon.com/128/5968/5968350.png" alt="Python Icon" />
+      <p>Python Scripts</p>
+    </div>
+    <div class="service-card" onclick="openForm('Logo Design')">
+      <img src="https://cdn-icons-png.flaticon.com/128/1828/1828884.png" alt="Logo Icon" />
+      <p>Logo Design</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Me</h2>
+    <p><strong>Phone:</strong> 01110374797</p>
+    <p><strong>Facebook:</strong> Ragab Shabaan Abdelhalim</p>
+    <p><strong>Email:</strong> ragab_shabaan9920@outlook.com</p>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Ragab Shabaan. All rights reserved.</p>
+  </footer>
+  <div class="chatbot" id="chatbot">
+    <div class="chatbot-header">روبوت رجب</div>
+    <div class="chatbot-messages" id="chatMessages"></div>
+    <div class="chatbot-input">
+      <input type="text" id="chatInput" placeholder="اسأل عن خدمات الموقع..." autocomplete="off">
+      <button onclick="handleChat()">إرسال</button>
+    </div>
+  </div>
+  
+  <style>
+    .chatbot {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      width: 300px;
+      background: #1f2b3a;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .chatbot-header {
+      background: #00bfff;
+      padding: 10px;
+      font-weight: bold;
+    }
+    .chatbot-messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      max-height: 200px;
+      font-size: 14px;
+      text-align: right;
+    }
+    .chatbot-input {
+      display: flex;
+      border-top: 1px solid #333;
+    }
+    .chatbot-input input {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      outline: none;
+    }
+    .chatbot-input button {
+      padding: 8px;
+      border: none;
+      background: #00bfff;
+      cursor: pointer;
+    }
+  </style>
+  
+  <script>
+    const siteTopics = ["موقع", "ويب", "مواقع", "تطبيق", "تطبيقات", "اندرويد", "ios", "بايثون", "سكريبت", "شعار", "لوجو", "تصميم", "تواصل", "رقم", "ايميل", "خدمة", "خدمات"];
+  
+    function normalize(text) {
+      return text.replace(/[إأآا]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه');
+    }
+  
+    function handleChat() {
+      const input = document.getElementById("chatInput");
+      const rawMsg = input.value.trim();
+      const msg = normalize(rawMsg);
+      if (!msg) return;
+  
+      const messages = document.getElementById("chatMessages");
+      const userDiv = document.createElement("div");
+      userDiv.textContent = `أنت: ${rawMsg}`;
+      messages.appendChild(userDiv);
+  
+      let reply = "أنا هنا فقط لمساعدتك داخل هذا الموقع. من فضلك اسأل عن شيء متعلق بالخدمات أو المعلومات هنا.";
+  
+      for (let word of siteTopics) {
+        if (msg.includes(normalize(word))) {
+          if (msg.includes("موقع")) reply = "نحن نقدم خدمات تصميم مواقع إلكترونية احترافية.";
+          else if (msg.includes("تطبيق")) reply = "يمكنني تصميم تطبيقات أندرويد و iOS حسب فكرتك.";
+          else if (msg.includes("بايثون")) reply = "نعم، أقدم خدمات برمجة سكريبتات بايثون.";
+          else if (msg.includes("شعار") || msg.includes("لوجو")) reply = "أصمم شعارات مميزة لعلامتك التجارية.";
+          else if (msg.includes("تواصل") || msg.includes("رقم") || msg.includes("ايميل")) reply = "يمكنك التواصل معي على 01110374797 أو عبر البريد: ragab_shabaan9920@outlook.com";
+          else if (msg.includes("خدمة") || msg.includes("خدمات")) reply = "أقدم خدمات تصميم مواقع، تطبيقات، بايثون، وتصميم شعارات.";
+          else reply = "أنا هنا لمساعدتك في كل ما يخص هذا الموقع.";
+          break;
+        }
+      }
+  
+      const botDiv = document.createElement("div");
+      botDiv.textContent = `رجب بوت: ${reply}`;
+      messages.appendChild(botDiv);
+  
+      const utterance = new SpeechSynthesisUtterance(reply);
+      utterance.lang = "ar-EG";
+      speechSynthesis.speak(utterance);
+  
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  
+    document.getElementById("chatInput").addEventListener("keydown", function(event) {
+      if (event.key === "Enter") {
+        handleChat();
+      }
+    });
+  </script>
+
+  <div class="overlay" id="overlay" onclick="closeForm()"></div>
+  <div class="popup-form" id="popupForm">
+    <h2>Request a Service</h2>
+    <form id="serviceForm">
+      <input type="hidden" name="service" id="serviceType" value="">
+      <input type="text" name="name" placeholder="Your Name" required />
+      <input type="tel" name="phone" placeholder="Phone Number" required />
+      <textarea name="request" rows="4" placeholder="Describe the work you need" required></textarea>
+      <button type="submit">Send Request</button>
+    </form>
+  </div>
+
+  <div class="confirmation" id="confirmation">
+    <p>Your request has been sent successfully. Ragab Shabaan will contact you soon.</p>
+    <button onclick="closeConfirmation()">OK</button>
+  </div>
+
+  <script>
+    function openForm(service) {
+      document.getElementById('popupForm').style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById('serviceType').value = service;
+    }
+    function closeForm() {
+      document.getElementById('popupForm').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+    function showConfirmation() {
+      document.getElementById('popupForm').style.display = 'none';
+      document.getElementById('confirmation').style.display = 'block';
+    }
+    function closeConfirmation() {
+      document.getElementById('confirmation').style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
+
+    document.getElementById('serviceForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      const form = event.target;
+      const data = new FormData(form);
+      data.append('_captcha', 'false'); // Disable captcha popup
+
+      fetch('https://formsubmit.co/ajax/ragabshabaan50@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json'
+        },
+        body: data
+      })
+      .then(response => {
+        if (response.ok) {
+          showConfirmation();
+          form.reset();
+        } else {
+          alert('Something went wrong. Please try again.');
+        }
+      })
+      .catch(error => {
+        alert('Error occurred: ' + error.message);
+      });
+    });
+  </script>
+</body>
+</html>
+
+  
